@@ -49,7 +49,29 @@ module Enumerable
     obj
   end
 
-  
+  def my_select
+    return to_enum :my_select unless block_given?
+
+    obj = self
+    arr_obj = []
+    hash_obj = {}
+    case obj
+    when Array
+      obj.my_each do |value|
+        arr_obj.push(value) if yield(value) == true
+      end
+    when Hash
+      obj.my_each do |key, value|
+        hash_obj.store(key, value) if yield(key, value) == true
+      end
+    else
+      obj
+    end
+    if obj.is_a? Array
+      arr_obj
+    else
+      hash_obj
+  end
 end
 
 # rubocop:enable Metrics/MethodLength
