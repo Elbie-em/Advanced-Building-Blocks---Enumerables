@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/CyclomaticComplexity
-
-# This Module consists of replicated enumerable methods in RUBY
+# THIS MODULE CONSISTS OF REPLICATED ENUMERABLE METHODS IN RUBY
 module Enumerable
   def my_each
-    return to_enum :my_each unless block_given?
+    return to_enum :add unless block_given?
 
     obj = self
     itr = 0
@@ -35,13 +32,13 @@ module Enumerable
     loop do
       case obj
       when Array
-        yield(obj[itr],itr)
+        yield(obj[itr], itr)
         itr += 1
         break if itr == obj.length
       when Hash
-        yield(obj.keys[itr],itr)
+        yield(obj.keys[itr], itr)
         itr += 1
-        break  if itr == obj.size
+        break if itr == obj.size
       else
         return obj
       end
@@ -71,8 +68,6 @@ module Enumerable
       arr_obj
     else
       hash_obj
+    end
   end
 end
-
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/CyclomaticComplexity
