@@ -111,7 +111,30 @@ module Enumerable
     result
   end
 
-  def my_any?(param = nil); end
+  def my_any?(param = nil)
+    obj = self
+    result = false
+    if block_given? && param.nil?
+      obj.my_each do |value|
+        return true if yield(value)
+      end
+    elsif param.is_a? Class
+      obj.my_each do |value|
+        result = true if value.is_a? param
+      end
+    elsif param.is_a? Regexp
+      obj.my_each do |value|
+        result = true if value =~ param
+      end
+    elsif obj.empty? && param.nil?
+      result = false
+    else
+      obj.my_each do |value|
+        result = true if value.nil? || !value
+      end
+    end
+    result
+  end
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity
