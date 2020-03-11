@@ -26,6 +26,30 @@ module Enumerable
     end
     obj
   end
+
+  def my_each_with_index
+    return to_enum :my_each_with_index unless block_given?
+
+    obj = self
+    itr = 0
+    loop do
+      case obj
+      when Array
+        yield(obj[itr],itr)
+        itr += 1
+        break if itr == obj.length
+      when Hash
+        yield(obj.keys[itr],itr)
+        itr += 1
+        break  if itr == obj.size
+      else
+        return obj
+      end
+    end
+    obj
+  end
+
+  
 end
 
 # rubocop:enable Metrics/MethodLength
