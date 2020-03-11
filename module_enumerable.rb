@@ -1,5 +1,7 @@
 # rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/MethodLength:
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/ModuleLength
 
 # THIS MODULE CONSISTS OF REPLICATED ENUMERABLE METHODS IN RUBY
 module Enumerable
@@ -72,47 +74,47 @@ module Enumerable
     end
   end
 
-  def my_all?(_param = nil)
+  def my_all?(param = nil)
     obj = self
     result = false
-    if block_given? && _param.nil?
+    if block_given? && param.nil?
       obj.my_each do |value|
-        if yield(value) != true
-          return false
-        else
-          return true
-        end
+        return false if yield(value) != true
       end
-    elsif _param.is_a? Class
-        obj.my_each do |value|
-          if value.is_a? _param
-            result = true
-          else
-            result = false
-          end
-        end
-    elsif _param.is_a? Regexp
-        obj.my_each do |value|
-          if value =~ _param
-            result = true
-          else
-            result = false
-          end
-        end
-    elsif obj.empty? && _param.nil?
+    elsif param.is_a? Class
+      obj.my_each do |value|
+        result = if value.is_a? param
+                   true
+                 else
+                   false
+                 end
+      end
+    elsif param.is_a? Regexp
+      obj.my_each do |value|
+        result = if value =~ param
+                   true
+                 else
+                   false
+                 end
+      end
+    elsif obj.empty? && param.nil?
       result = true
     else
       obj.my_each do |value|
-        if value.nil? || value != true
-          result = false
-        else
-          result = true
-        end
+        result = if value.nil? || value != true
+                   false
+                 else
+                   true
+                 end
       end
     end
     result
   end
+
+  def my_any?(param = nil); end
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/ModuleLength
