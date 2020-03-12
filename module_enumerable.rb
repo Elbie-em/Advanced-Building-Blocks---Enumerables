@@ -53,6 +53,7 @@ module Enumerable
     return to_enum :my_select unless block_given?
 
     obj = self
+    obj = obj.to_a
     arr_obj = []
     hash_obj = {}
     case obj
@@ -74,38 +75,42 @@ module Enumerable
     end
   end
 
-  def my_all?(param = nil)
+  def my_all?(params = nil)
     obj = self
     result = false
-    if block_given? && param.nil?
+    if block_given? && params.nil?
       obj.my_each do |value|
-        return false if yield(value) != true
+        if yield(value) != true
+          result = false
+        else
+          result = true
+        end
       end
-    elsif param.is_a? Class
-      obj.my_each do |value|
-        result = if value.is_a? param
-                   true
-                 else
-                   false
-                 end
-      end
-    elsif param.is_a? Regexp
-      obj.my_each do |value|
-        result = if value =~ param
-                   true
-                 else
-                   false
-                 end
-      end
-    elsif obj.empty? && param.nil?
+    elsif params.is_a? Class
+        obj.my_each do |value|
+          if value.is_a? params 
+            result = true
+          else
+            result = false
+          end
+        end
+    elsif params.is_a? Regexp
+        obj.my_each do |value|
+          if value =~ params
+            result = true
+          else
+            result = false
+          end
+        end
+    elsif obj.empty? && params.nil?
       result = true
     else
       obj.my_each do |value|
-        result = if value.nil? || value != true
-                   false
-                 else
-                   true
-                 end
+        if value.nil? || value != true
+          result = false
+        else
+          result = true
+        end
       end
     end
     result
