@@ -164,6 +164,39 @@ module Enumerable
     end
     result
   end
+
+  def my_count(param = nil)
+    obj = self
+    itr = 0
+    if block_given? && param.nil?
+      obj.my_each do |value|
+        itr += 1 if yield(value)
+      end
+    end
+    if param.is_a? Integer or param.is_a? Float or param.is_a? String
+      obj.my_each do |value|
+        itr += 1 if value == param
+      end
+    end
+    if param.is_a? Regexp
+      obj.my_each do |value|
+        itr += 1 if value == param
+      end
+    end
+    itr = obj.length if !block_given? && param.nil?
+    itr
+  end
+
+  def my_map
+    return to_enum :my_map unless block_given?
+    obj = self
+    obj = obj.to_a
+    my_array = []
+    obj.my_each do |value|
+      my_array.push(yield(value))
+    end
+    my_array
+  end
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity
