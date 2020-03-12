@@ -197,6 +197,25 @@ module Enumerable
     end
     my_array
   end
+
+  def my_inject(param = nil)
+    obj = self
+    obj = obj.to_a
+    itr = 0
+    result = obj[itr]
+    if block_given?
+      loop do
+        result = yield(result, obj[itr + 1])
+        itr += 1
+        break if itr == obj.length - 1
+      end
+    end
+    if !param.nil?
+      result = result * param
+    end
+    result
+  end
+
 end
 
 # rubocop:enable Metrics/CyclomaticComplexity
