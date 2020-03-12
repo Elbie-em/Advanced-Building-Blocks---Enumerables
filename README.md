@@ -43,5 +43,8 @@ Give me ⭐️ if you like this project!
 ## Acknowledgments
 
 - [Microverse](microverse.org)
+- [Programming Partner: Rafael Nazario](https://github.com/rsnazario)
 - [The Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks)
 - [Ruby DOCS](https://ruby-doc.org/core-2.6.5/Enumerable.html#method-i-inject)
+- [Ruby Magic: by Jeff Kreeftmeijer](https://blog.appsignal.com/2018/09/04/ruby-magic-closures-in-ruby-blocks-procs-and-lambdas.html)
+- [Maurício Linhares' ramblings](https://mauricio.github.io/2015/01/12/implementing-enumerable-in-ruby.html)
