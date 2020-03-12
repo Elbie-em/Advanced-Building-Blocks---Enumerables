@@ -19,7 +19,7 @@
 **The project was designed to test capalities of designing methods using Ruby**
 - **Ruby Enviroment**: if you do not have ruby installed visit this [link](https://www.ruby-lang.org/en/documentation/installation/) to install
 
-- **Terminal(Mac & Linux) or Command Prompt(Windows)**: run the main.rb file to see the methods at work
+- **Terminal(Mac & Linux) or Command Prompt(Windows)**: creat a file, include the module_enumerable.rb file to see the methods at work with several test cases of your choice
 
 ## Author ![Hireable](https://img.shields.io/badge/HIREABLE-YES-yellowgreen&?style=for-the-badge)
 
