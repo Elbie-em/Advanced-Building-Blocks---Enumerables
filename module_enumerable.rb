@@ -212,6 +212,7 @@ module Enumerable
     itr = 0
     result = obj[itr]
     if block_given?
+      obj << param unless param.nil?
       loop do
         result = yield(result, obj[itr + 1])
         itr += 1
