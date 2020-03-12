@@ -8,4 +8,6 @@ def multiply_els(my_array)
   my_array.my_inject { |result, value| result * value }
 end
 
-puts multiply_els([2, 4, 5])
+p multiply_els([2, 4, 5])
+
+

@@ -187,14 +187,19 @@ module Enumerable
     itr
   end
 
-  def my_map
-    return to_enum :my_map unless block_given?
-
+  def my_map(my_proc = nil)
+    return to_enum :my_map unless block_given? || my_proc.class == Proc
     obj = self
     obj = obj.to_a
     my_array = []
-    obj.my_each do |value|
-      my_array.push(yield(value))
+    if !my_proc.nil?
+      obj.my_each do |value|
+        my_array.push(proc.call(value))
+      end
+    else
+      obj.my_each do |value|
+        my_array.push(yield(value))
+      end
     end
     my_array
   end
