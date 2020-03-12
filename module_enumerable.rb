@@ -189,6 +189,7 @@ module Enumerable
 
   def my_map(my_proc = nil)
     return to_enum :my_map unless block_given? || my_proc.class == Proc
+
     obj = self
     obj = obj.to_a
     my_array = []

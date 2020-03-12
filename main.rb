@@ -8,6 +8,6 @@ def multiply_els(my_array)
   my_array.my_inject { |result, value| result * value }
 end
 
-p multiply_els([2, 4, 5])
+puts multiply_els([2, 4, 5])
 
-
+# rubocop:enable Style/MixinUsage
