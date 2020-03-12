@@ -80,37 +80,33 @@ module Enumerable
     result = false
     if block_given? && params.nil?
       obj.my_each do |value|
-        if yield(value) != true
-          result = false
-        else
-          result = true
-        end
+        result = yield(value) == true
       end
     elsif params.is_a? Class
-        obj.my_each do |value|
-          if value.is_a? params 
-            result = true
-          else
-            result = false
-          end
-        end
+      obj.my_each do |value|
+        result = if value.is_a? params
+                   true
+                 else
+                   false
+                 end
+      end
     elsif params.is_a? Regexp
-        obj.my_each do |value|
-          if value =~ params
-            result = true
-          else
-            result = false
-          end
-        end
+      obj.my_each do |value|
+        result = if value =~ params
+                   true
+                 else
+                   false
+                 end
+      end
     elsif obj.empty? && params.nil?
       result = true
     else
       obj.my_each do |value|
-        if value.nil? || value != true
-          result = false
-        else
-          result = true
-        end
+        result = if value.nil? || value != true
+                   false
+                 else
+                   true
+                 end
       end
     end
     result
