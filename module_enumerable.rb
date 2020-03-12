@@ -189,6 +189,7 @@ module Enumerable
 
   def my_map
     return to_enum :my_map unless block_given?
+
     obj = self
     obj = obj.to_a
     my_array = []
@@ -210,14 +211,10 @@ module Enumerable
         break if itr == obj.length - 1
       end
     end
-    if !param.nil?
-      result = result * param
-    end
+    result *= param unless param.nil?
     result
   end
-
 end
-
 
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
