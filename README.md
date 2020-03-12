@@ -5,7 +5,7 @@
 
 ## Live Demo
 
-[![Run on Repl.it](https://repl.it/@elbieem/Building-Blocks-Enumerables)
+[![Run on Repl.it](https://repl.it/@elbieem/Building-Blocks-Enumerables)]
 
 ## Built With
 
