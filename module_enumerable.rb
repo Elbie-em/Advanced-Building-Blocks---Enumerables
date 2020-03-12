@@ -219,7 +219,6 @@ module Enumerable
         break if itr == obj.length - 1
       end
     end
-    result *= param unless param.nil?
     result
   end
 end

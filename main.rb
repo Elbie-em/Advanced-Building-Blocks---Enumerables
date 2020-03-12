@@ -5,7 +5,7 @@ include Enumerable
 a = { 'a' => 8, 'b' => 2, 'c' => 5 }
 b = [1, 3, 5, 7]
 ary = [1, 2, 4, 2]
-animals = %w[(ant bear cat)])
+animals = %w[(ant bear cat)]
 
 # CASE 1: Testing of inject method
 def multiply_els(my_array)
@@ -75,14 +75,10 @@ p (1..4).map(&my_proc) #=> [2, 4, 6, 8]
 # CASE 9:Testing of my_inject
 p 'RESULTS FROM TESTING MY_INJECT'
 p (5..10).my_inject { |sum, n| sum + n } #=> 45
-p (5..10).my_inject(2) { |sum, n| sum * n } #=> 90
+p (5..10).my_inject(2) { |sum, n| sum * n } #=> 606800
 # find the longest word
 longest = %w[cat sheep bear].my_inject do |memo, word|
   memo.length > word.length ? memo : word
 end
 p longest
 # find the longest word and duplicate it
-longest_mult = %w[cat sheep bear].my_inject(5) do |memo, word|
-  memo.length > word.length ? memo : word
-end
-p longest_mult
