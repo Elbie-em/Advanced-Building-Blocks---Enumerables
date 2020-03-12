@@ -75,7 +75,7 @@ p (1..4).map(&my_proc) #=> [2, 4, 6, 8]
 # CASE 9:Testing of my_inject
 p 'RESULTS FROM TESTING MY_INJECT'
 p (5..10).my_inject { |sum, n| sum + n } #=> 45
-p (5..10).my_inject(2) { |sum, n| sum * n } #=> 606800
+p (5..10).my_inject(2) { |sum, n| sum * n } #=> 302400
 # find the longest word
 longest = %w[cat sheep bear].my_inject do |memo, word|
   memo.length > word.length ? memo : word
