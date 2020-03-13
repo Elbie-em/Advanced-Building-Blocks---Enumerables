@@ -75,38 +75,22 @@ module Enumerable
     end
   end
 
-  def my_all?(params = nil)
+  def my_all?(*params)
     obj = self
-    result = false
-    if block_given? && params.nil?
+    result = true
+    if block_given?
       obj.my_each do |value|
-        result = yield(value) == true
+       result = false unless yield(value)
       end
-    elsif params.is_a? Class
+    elsif !params[0].nil?
       obj.my_each do |value|
-        result = if value.is_a? params
-                   true
-                 else
-                   false
-                 end
+      result = false unless params[0] === value
       end
-    elsif params.is_a? Regexp
-      obj.my_each do |value|
-        result = if value =~ params
-                   true
-                 else
-                   false
-                 end
-      end
-    elsif obj.empty? && params.nil?
+    elsif obj.empty? && params[0].nil?
       result = true
     else
       obj.my_each do |value|
-        result = if value.nil? || value != true
-                   false
-                 else
-                   true
-                 end
+        result = false unless value
       end
     end
     result
@@ -221,9 +205,16 @@ module Enumerable
     end
     result
   end
+
 end
+
+
 
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/ModuleLength
+
+include Enumerable
+
+
