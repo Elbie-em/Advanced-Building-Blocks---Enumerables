@@ -53,7 +53,7 @@ module Enumerable
     return to_enum :my_select unless block_given?
 
     obj = self
-    obj = obj.to_a
+    obj = obj.to_a if obj.is_a? Range
     arr_obj = []
     hash_obj = {}
     case obj
@@ -199,3 +199,8 @@ end
 # rubocop:enable Metrics/ModuleLength
 
 include Enumerable
+
+a = { a: 1, b: 2, c: 3}
+
+
+p a.my_select {|x,y| y > 1}
