@@ -96,26 +96,22 @@ module Enumerable
     result
   end
 
-  def my_any?(param = nil)
+  def my_any?(*params)
     obj = self
     result = false
-    if block_given? && param.nil?
+    if block_given?
       obj.my_each do |value|
-        return true if yield(value)
+       result = true if yield(value)
       end
-    elsif param.is_a? Class
+    elsif !params[0].nil?
       obj.my_each do |value|
-        result = true if value.is_a? param
+      result = true if params[0] === value
       end
-    elsif param.is_a? Regexp
-      obj.my_each do |value|
-        result = true if value =~ param
-      end
-    elsif obj.empty? && param.nil?
+    elsif obj.empty? && params[0].nil?
       result = false
     else
       obj.my_each do |value|
-        result = true if value.nil? || !value
+        result = true if value
       end
     end
     result
@@ -206,12 +202,12 @@ module Enumerable
     result
   end
 
+  def multiply_els(my_array)
+    my_array.my_inject { |result, value| result * value }
+  end
 end
 
-# MULTIPLY ELSE TESTING INJECT METHOD
-def multiply_els(my_array)
-  my_array.my_inject { |result, value| result * value }
-end
+
 
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
@@ -220,4 +216,8 @@ end
 
 include Enumerable
 
+p [nil, false, nil, false].my_any?
+p [nil, false, nil, false].any?
 
+p ['cat',2,32,].my_any?('cat')
+p ['cat',2,32,].any?('cat')
