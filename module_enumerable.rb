@@ -208,7 +208,10 @@ module Enumerable
 
 end
 
-
+# MULTIPLY ELSE TESTING INJECT METHOD
+def multiply_els(my_array)
+  my_array.my_inject { |result, value| result * value }
+end
 
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
