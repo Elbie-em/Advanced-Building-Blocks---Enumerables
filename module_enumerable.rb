@@ -2,6 +2,7 @@
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/ModuleLength
+# rubocop:disable Style/CaseEquality
 
 # THIS MODULE CONSISTS OF REPLICATED ENUMERABLE METHODS IN RUBY
 module Enumerable
@@ -80,11 +81,11 @@ module Enumerable
     result = true
     if block_given?
       obj.my_each do |value|
-       result = false unless yield(value)
+        result = false unless yield(value)
       end
     elsif !params[0].nil?
       obj.my_each do |value|
-      result = false unless params[0] === value
+        result = false unless params[0] === value
       end
     elsif obj.empty? && params[0].nil?
       result = true
@@ -101,11 +102,11 @@ module Enumerable
     result = false
     if block_given?
       obj.my_each do |value|
-       result = true if yield(value)
+        result = true if yield(value)
       end
     elsif !params[0].nil?
       obj.my_each do |value|
-      result = true if params[0] === value
+        result = true if params[0] === value
       end
     elsif obj.empty? && params[0].nil?
       result = false
@@ -120,13 +121,13 @@ module Enumerable
   def my_none?(param = nil)
     obj = self
     result = true
-    if block_given?
-     result = !obj.my_any? do |value| 
-        yield value
-      end
-    else
-      result = !obj.my_any?(param)
-    end
+    result = if block_given?
+               !obj.my_any? do |value|
+                 yield value
+               end
+             else
+               !obj.my_any?(param)
+             end
     result
   end
 
@@ -202,13 +203,8 @@ module Enumerable
   end
 end
 
-
-
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/MethodLength:
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/ModuleLength
-
-include Enumerable
-
-
+# rubocop:enable Style/CaseEquality
