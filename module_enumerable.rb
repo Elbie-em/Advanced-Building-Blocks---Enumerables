@@ -170,18 +170,29 @@ module Enumerable
     my_array
   end
 
-  def my_inject(param = nil)
+  def my_inject(param = nil, opr = nil)
     obj = self
     obj = obj.to_a
-    itr = 0
-    result = obj[itr]
-    if block_given?
-      obj << param unless param.nil?
+    itr = 1
+    result = obj[0]
+    if !param.nil? && opr.class == Symbol
+      result = param
+      obj.my_each { |value| result = result.send(opr, value) }
+    elsif param.nil? && opr.nil?
       loop do
-        result = yield(result, obj[itr + 1])
+        result = yield(result, obj[itr]) if block_given?
         itr += 1
-        break if itr == obj.length - 1
+        break if itr == obj.length
       end
+    elsif param.class == Symbol
+      loop do
+        result = result.send(param, obj[itr])
+        itr += 1
+        break if itr == obj.length
+      end
+    elsif !param.nil? && opr.nil?
+      result = param
+      obj.my_each { |value| result = yield(result, value) } if block_given?
     end
     result
   end
@@ -200,7 +211,4 @@ end
 
 include Enumerable
 
-a = { a: 1, b: 2, c: 3}
 
-
-p a.my_select {|x,y| y > 1}
