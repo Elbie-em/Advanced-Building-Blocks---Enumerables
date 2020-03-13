@@ -120,7 +120,6 @@ module Enumerable
 
   def my_none?(param = nil)
     obj = self
-    result = true
     result = if block_given?
                !obj.my_any? do |value|
                  yield value
