@@ -120,28 +120,12 @@ module Enumerable
   def my_none?(param = nil)
     obj = self
     result = true
-    if block_given? && param.nil?
-      obj.my_each do |value|
-        result = false if yield(value)
+    if block_given?
+     result = !obj.my_any? do |value| 
+        yield value
       end
-    elsif param.is_a? Class
-      obj.my_each do |value|
-        result = false if value.is_a? param
-      end
-    elsif param.is_a? Regexp
-      obj.my_each do |value|
-        result = false if value =~ param
-      end
-    elsif obj.empty? && param.nil?
-      result = true
     else
-      obj.my_each do |value|
-        result = if value.nil? || !value
-                   true
-                 else
-                   false
-                 end
-      end
+      result = !obj.my_any?(param)
     end
     result
   end
@@ -215,9 +199,3 @@ end
 # rubocop:enable Metrics/ModuleLength
 
 include Enumerable
-
-p [nil, false, nil, false].my_any?
-p [nil, false, nil, false].any?
-
-p ['cat',2,32,].my_any?('cat')
-p ['cat',2,32,].any?('cat')
